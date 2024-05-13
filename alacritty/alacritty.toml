@@ -1,0 +1,38 @@
+live_config_reload = true
+import=["~/.config/alacritty/colors.toml"]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+padding = { x = 5, y = 5 }
+dynamic_padding = true
+opacity = 0.75
+dynamic_title = true
+
+[font]
+normal = { family = "JetBrainsMonoNerdFont", style = "Regular" }
+size = 10
+
+[shell]
+program = "/bin/bash"
+args = ["-l"]
+
+[cursor]
+style = "Underline"
+unfocused_hollow = true
+vi_mode_style = "Block"
+
+[bell]
+animation = "EaseOutExpo"
+color = "#ffffff"
+duration = 3
+
+[[keyboard.bindings]]
+action = "ToggleViMode"
+key = "Space"
+mods = "Control"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
