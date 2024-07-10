@@ -21,8 +21,6 @@ set completion-highlight-fg '{{color0}}'
 set completion-highlight-bg '{{color7}}'
 
 # Default foreground/background color
-# No idea wtf this is trying to do, check later...
-# set default-bg rgba(${r},${g},${b},${alpha})
 set default-bg rgba({{background.red}},{{background.green}},{{background.blue}},.95) 
 
 # Input bar
