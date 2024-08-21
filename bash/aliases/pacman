@@ -1,0 +1,8 @@
+function pacman() {
+    if [[ "$1" == "-Ss" ]]; then
+        command pacman "$@"
+    else
+        forcesudo pacman "$@"
+    fi
+}
+

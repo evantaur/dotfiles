@@ -1,0 +1,52 @@
+alias shmarks="$_B_CONF/bin/shmarks/shmarks"
+
+bm(){
+  case $1 in
+  "-a"|"add")
+    shmarks new ${@:2}
+    bm autocompletion
+    ;;
+    
+  "-l"|"ls"|"list")
+    shmarks sort
+    shmarks list -d
+    ;;
+
+  "-d"|"rm"|"delete")
+    if [[ -n $2 ]]; then
+      shmarks rm -a ${@:2}
+    else
+      shmarks rm
+    fi
+    bm autocompletion
+    ;;
+  
+  "-h"|"help")
+      echo "USAGE:"
+      echo "bm -a                "
+      echo "bm -a                "
+      echo "bm -a                "
+      echo "bm -a                "
+      echo "bm -a                "
+      echo "bm -a                "
+      echo "bm -a                " 
+  ;;
+
+  "autocompletion")
+    complete -W '`shmarks list`' bm
+  ;;
+  *)
+    if [[ -n $1 ]]; then
+      local JUMPER=$(shmarks -a $@)
+      if [[ -n $JUMPER ]]; then
+        cd $JUMPER
+      else
+        shmarks list -d
+      fi
+    else
+      bm help
+    fi
+    ;;
+esac
+}
+bm autocompletion
