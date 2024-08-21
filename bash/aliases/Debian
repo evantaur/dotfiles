@@ -1,0 +1,4 @@
+if [ "$___DISTRO" == "Debian" ] || [ "$___DISTRO" == "Ubuntu" ] ; then
+	alias nala='forcesudo /usr/bin/nala'
+	alias anal=nala
+fi

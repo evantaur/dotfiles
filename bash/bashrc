@@ -22,6 +22,9 @@ source ~/.config/bash/.dir_colors
 source $_B_CONF/scripts/git-prompt.sh
 source ~/.config/bash/prompt
 
+# Get Distro name
+___DISTRO=$(awk '{print $1}' /etc/issue | tr -d "\n")
+
 # Load aliases
 if [ -d "$HOME/.config/bash/aliases/" ]; then
     for file in "$HOME/.config/bash/aliases/"*; do

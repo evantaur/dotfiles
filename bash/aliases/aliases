@@ -2,14 +2,11 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias ls='lsd'
-alias nala='forcesudo /usr/bin/nala'
-alias anal=nala
-alias nano="hx||helix||nano"
+alias nano="hx||(helix||nano)"
 alias nf="$_B_CONF/scripts/nf"
 alias activate='source bin/activate &> /dev/null || source ../bin/activate &> /dev/null || echo "not in venv"'
 alias calc="numbat -e"
 alias ytdl="yt-dlp -f mp4"
-alias cyber="ssh -t 10.255.255.5 \"~/start.sh\""
 alias forcesudo='[ "$(whoami)" = "root" ] && "$@" || sudo'
 
 function fuck () {
