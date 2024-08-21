@@ -39,4 +39,15 @@ export PATH=$PATH:$(whoami)/.local/bin
 
 
 # The most important thing
-fastfetch
+fastfetch 2> /dev/null || (
+    echo -ne "Nya $HOSTNAME\n\n\nUwU\n\n"
+
+echo " ((      /|_/|"
+echo " \\\\.._.'  , ,\\"
+echo "  /\\ | '.__ v /"
+echo " (_ .   /   \"   "     
+echo "  ) _)._  _ /"
+echo " '.\\ \\|( / ( mrf" 
+echo "   '' ''\\\\ \\\\"
+echo -ne "\n\n"    
+)
