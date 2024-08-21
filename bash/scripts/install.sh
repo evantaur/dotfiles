@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Downloads and installs bash config, probably 
 # don't want to run this unless you're me...
