@@ -1,0 +1,15 @@
+#!/bin/bash
+pgrep swaylock-fx > /dev/null && exit 0
+#swaylock-fx \
+$HOME/.config/sway/bin/swaylock \
+	--image ~/.cache/current_wallpaper.jpg \
+	--clock \
+	--indicator-radius 200 \
+	--indicator-thickness 7 \
+	--ring-color bb00cc \
+	--key-hl-color 880033 \
+	--line-color 00000000 \
+	--inside-color 00000088 \
+	--separator-color 00000000 \
+	--grace 2 \
+	--fade-in 1

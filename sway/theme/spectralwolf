@@ -1,0 +1,43 @@
+set $widescreen_gap 980
+
+# Borders
+set $clear #ffffff00
+client.focused a45ee5 a45ee5 a45ee5 a45ee5 
+client.focused_inactive $clear $clear $clear $clear
+client.unfocused $clear $clear $clear $clear
+default_border pixel 3
+default_floating_border pixel 2
+smart_borders off
+
+# Corner radius
+corner_radius 8
+
+
+# Gaps
+smart_gaps inverse_outer
+#on
+gaps inner 5
+ #15
+# gaps outer 2
+gaps top 1
+gaps bottom 1
+gaps left $widescreen_gap
+gaps right $widescreen_gap
+ #2
+
+
+# Shadows
+shadows enable
+shadow_color #000000
+shadows_on_csd enable
+shadow_blur_radius 10
+shadow_inactive_color #000000
+
+
+# Blur
+blur enable
+blur_radius 2
+
+
+# Waybar
+#layer_effects "waybar" blur enable; blur_radius 10;blur passes 4

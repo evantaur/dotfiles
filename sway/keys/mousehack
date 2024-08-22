@@ -1,0 +1,2 @@
+#bindsym --release --whole-window $mod+button9 seat - press button5
+#bindsym --release --whole-window $mod+button9 seat - release button5

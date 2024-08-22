@@ -1,0 +1,60 @@
+#
+# Basics:
+#
+    # Kill focused window
+    bindsym $mod++q kill
+
+    # Start your launcher
+    bindsym $mod+r exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+r reload
+
+    # Exit sway (logs you out of your Wayland session)
+    
+    # Settings for Assembly
+    bindsym $mod+Shift+e exec wlogout -P 1 -n -R 900 -L 900 -T 200 -B 200 -s -p layer-shell
+    #bindsym $mod+Shift+e exec wlogout 1 -n -R 900 -L 900 -T 200 -B 200 -s -p layer-shell
+    
+    bindsym $mod+alt+l exec $HOME/.config/sway/scripts/swaylock.sh
+    bindsym XF86WakeUp+l exec $HOME/.config/sway/scripts/swaylock.sh
+
+# Volume
+#bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+#bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+
+# Emercency screen toggle
+bindsym XF86Display exec 'swaymsg "output eDP-1 toggle"'
+
+
+# Volume raise with custom value
+bindsym XF86AudioRaiseVolume exec $HOME/.config/sway/bin/swayosd-client --output-volume 5
+# Volume lower with custom value
+bindsym XF86AudioLowerVolume exec $HOME/.config/sway/bin/swayosd-client --output-volume -5
+
+# Sink volume toggle mute
+bindsym XF86AudioMute exec $HOME/.config/sway/bin/swayosd-client --output-volume mute-toggle
+# Source volume toggle mute
+bindsym XF86AudioMicMute exec $HOME/.config/sway/bin/swayosd-client --input-volume mute-toggle
+
+# Brightness raise
+bindsym XF86MonBrightnessUp exec $HOME/.config/sway/bin/swayosd-client --brightness raise
+# Brightness lower
+bindsym XF86MonBrightnessDown exec $HOME/.config/sway/bin/swayosd-client --brightness lower
+
+# Capslock (If you don't want to use the backend)
+bindsym --release Caps_Lock exec $HOME/.config/sway/bin/swayosd-client --caps-lock
+# Capslock but specific LED name (/sys/class/leds/)
+#bindsym --release Caps_Lock exec swayosd-client --caps-lock-led input19::capslock
+
+
+bindswitch lid:on exec $HOME/.config/sway/scripts/laptop_lid.sh
+
+bindsym --release escape exec killall rofi

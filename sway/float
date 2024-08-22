@@ -1,0 +1,30 @@
+# By App ID
+for_window [app_id="thunar"]                  floating enable
+for_window [app_id="Thunar"]                  floating enable
+for_window [app_id="org.kde.gwenview"]        floating enable
+for_window [app_id="org.kde.kdialog"]         floating enable
+for_window [app_id="org.kde.dolphin"]         floating enable
+for_window [app_id=io.github.lact-linux]      floating enable
+for_window [app_id=it.mijorus.smile]          floating enable
+
+for_window [app_id="xdm-app"]                 floating enable
+assign     [app_id="xdm-app"]                     workspace 10
+
+#for_window [title="Blender Render"]            fullscreen enable
+
+#for_window [app_id=org.kde.gwenview]          floating enable
+#assign     [app_id=org.kde.gwenview]              output DP-3
+
+# By Class
+for_window [class="vlc"]                      floating enable
+#for_window [class="gwenview"]                 floating enable
+for_window [class="renoise"]                  floating enable
+for_window [class="Rofi"]                     floating enable
+
+# Scratchpad
+for_window [class="Ferdium"]                  move to scratchpad
+
+
+# Sidebar
+for_window [app_id="SIDEBAR_"]                layout toggle split toggle splith;; resize set width 550 px
+assign     [app_id="SIDEBAR_"]                workspace 10

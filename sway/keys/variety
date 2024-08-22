@@ -1,0 +1,3 @@
+bindsym XF86WakeUp+ctrl+end exec variety --next
+bindsym XF86WakeUp+ctrl+home exec variety --previous
+bindsym XF86WakeUp+ctrl+up exec variety -f

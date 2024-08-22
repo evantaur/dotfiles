@@ -1,0 +1,5 @@
+# Start a terminal
+bindsym $mod+x exec $term
+bindsym $mod+shift+x exec $term_battery
+bindsym $mod+shift+b exec $browser
+bindsym $mod+e exec $filemanager

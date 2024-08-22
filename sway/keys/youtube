@@ -1,0 +1,1 @@
+bindsym $mod+shift+F exec $HOME/.config/sway/scripts/youtube.sh

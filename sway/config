@@ -1,0 +1,78 @@
+# 
+# Synthwolf
+#
+
+### Variables
+#Trackpad status enabled/disabled
+set $trackpad_status disabled
+
+set $laptop true
+
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+set $waybar waybar
+
+
+include apps
+
+include /etc/sway/config-vars.d/*
+
+# Kill Remote
+exec_always "kill -9 `cat /tmp/swayremote_pid`"
+
+# Autorun
+# start programs stated in autorun
+exec_always ~/.config/sway/scripts/run_once.sh
+
+# Include Floating overide
+include float
+
+# Include window special rules
+include window_rules
+# Locale
+include locale
+
+### Key bindings
+include keys/*
+
+# Theme
+include theme/*
+
+# Outputs
+include output
+
+# Workspaces
+include workspaces
+
+# Minimize to scratchpad
+scratchpad_minimize enable
+
+#Waybar
+bar {
+  swaybar_command $waybar
+  workspace_buttons yes
+  mode hide
+  # modifier $mod+dead_acute
+}
+
+include /etc/sway/config.d/*
+exec swayrd > /tmp/swayrd.log 2>&1
+
+
+seat * hide_cursor 5000
+seat * hide_cursor when-typing enable
+
+focus_follows_mouse no
+
+include wallust-colors
+
+
+
+# Switch to workspace 1 as default
+workspace number 1

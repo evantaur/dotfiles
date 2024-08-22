@@ -1,0 +1,44 @@
+set $first DP-3
+set $second DP-2
+
+
+workspace 1 output $first
+workspace 2 output $first
+workspace 3 output $first
+workspace 4 output $first
+workspace 5 output $first
+
+workspace 61 output $first
+workspace 62 output $second
+workspace 62 smart_gaps on
+
+workspace 71 output $first
+workspace 72 output $second
+workspace 72 smart_gaps on
+
+workspace 81 output $first
+workspace 82 output $second
+workspace 82 smart_gaps on
+
+workspace 91 output $first
+workspace 92 output $second
+workspace 92 smart_gaps on
+
+workspace 10 output $second
+workspace 10 gaps left 2000
+workspace 10 gaps right 0
+
+workspace 11 output $second
+#workspace 11 smart_gaps on
+#workspace 11 smart_borders on
+#workspace 11 gaps left 0
+#workspace 11 gaps right 0
+#workspace 11 gaps top 0
+#workspace 11 gaps bottom 0
+
+#set $ws1 1
+#set $ws2 2
+#set $ws3 3
+#set $ws4 4
+#set $ws5 5
+

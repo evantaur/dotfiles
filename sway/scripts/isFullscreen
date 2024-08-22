@@ -1,0 +1,4 @@
+#!/bin/bash
+focus=`swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.focused == true) | .fullscreen_mode'`
+echo $focus | grep -i 1 > /dev/null && exit 0
+exit 1

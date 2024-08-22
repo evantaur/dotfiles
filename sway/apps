@@ -1,0 +1,11 @@
+# Your preferred terminal emulator
+
+# Terminal application
+set $term pgrep alacritty && alacritty msg create-window || alacritty
+
+set $browser firefox
+set $filemanager thunar
+set $editor $term -e hx
+
+
+set $menu rofi -modi drun -show drun -show-icons -display-drun "»" -normal-window

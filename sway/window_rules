@@ -1,0 +1,2 @@
+for_window [class="Hex"]                      shadows disable
+for_window [class="Hex"]                      blur disable

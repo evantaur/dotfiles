@@ -1,0 +1,18 @@
+#
+# Note to self:
+# Find a way to make this dynamic
+#
+
+
+# Output DP-2 'Lenovo Group Limited L29w-30 UPV0C17Y'
+output DP-2 {
+    pos 640 0
+    res 2560x1080
+    background #000000 solid_color
+}
+# DP-3 'Lenovo Group Limited LEN Y44w-10 0x00007F35'
+output DP-3 {
+    pos 0 1080
+    res 3840x1200
+    background #000000 solid_color
+}

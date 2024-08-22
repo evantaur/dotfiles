@@ -1,0 +1,41 @@
+@theme "/usr/share/rofi/themes/DarkBlue.rasi"
+
+window {
+	width: 450px;
+}
+
+/*
+
+* {
+		active-background: #D2505F;
+		active-foreground: @foreground;
+		normal-background: @background;
+		normal-foreground: @foreground;
+
+		urgent-background: #D2505F;
+		urgent-foreground: @foreground;
+
+		alternate-active-background: @background;
+		alternate-active-foreground: @foreground;
+		alternate-normal-background: @background;
+		alternate-normal-foreground: @foreground;
+		alternate-urgent-background: @background;
+		alternate-urgent-foreground: @foreground;
+
+		selected-active-background: #D2505F;
+		selected-active-foreground: @foreground;
+
+		selected-normal-background: #D2505F;
+		selected-normal-foreground: #190F0F;
+
+		selected-urgent-background: #8EA84D;
+		selected-urgent-foreground: @foreground;
+
+		background-color: @background;
+
+		background: rgba(25, 15,15,0.7);
+
+		foreground: #C79295;
+		border-color: @background;
+		spacing: 2;
+}

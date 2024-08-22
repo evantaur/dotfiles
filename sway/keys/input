@@ -1,0 +1,6 @@
+# Disable trackpad by default
+input type:touchpad {
+  events $trackpad_status
+}
+
+bindsym XF86WakeUp+h exec "$HOME/.config/sway/scripts/trackpad.sh $trackpad_status"
