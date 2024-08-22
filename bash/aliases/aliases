@@ -1,29 +1,40 @@
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias ls='lsd'
-alias nano="hx||(helix||nano)"
+which lsd 2> /dev/null && alias ls='lsd'
+
+#Attempt to find helix
+if [[ `which helix 2> /dev/null` ]]; then
+    alias nano="helix"
+elif [[ `which hx 2> /dev/null` ]]; then
+    alias nano="hx"
+fi
+
 alias nf="$_B_CONF/scripts/nf"
 alias activate='source bin/activate &> /dev/null || source ../bin/activate &> /dev/null || echo "not in venv"'
 alias calc="numbat -e"
 alias ytdl="yt-dlp -f mp4"
 alias forcesudo='[ "$(whoami)" = "root" ] && "$@" || sudo'
 
-function fuck () {
-    TF_PYTHONIOENCODING=$PYTHONIOENCODING;
-    export TF_SHELL=bash;
-    export TF_ALIAS=fuck;
-    export TF_SHELL_ALIASES=$(alias);
-    export TF_HISTORY=$(fc -ln -10);
-    export PYTHONIOENCODING=utf-8;
-    TF_CMD=$(
-        thefuck THEFUCK_ARGUMENT_PLACEHOLDER "$@"
-    ) && eval "$TF_CMD";
-    unset TF_HISTORY;
-    export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
-    history -s $TF_CMD;
-}
+#Attempt to fuck
+if [[ `which fuck 2> /dev/null` ]]; then
+    function fuck () {
+        TF_PYTHONIOENCODING=$PYTHONIOENCODING;
+        export TF_SHELL=bash;
+        export TF_ALIAS=fuck;
+        export TF_SHELL_ALIASES=$(alias);
+        export TF_HISTORY=$(fc -ln -10);
+        export PYTHONIOENCODING=utf-8;
+        TF_CMD=$(
+            thefuck THEFUCK_ARGUMENT_PLACEHOLDER "$@"
+        ) && eval "$TF_CMD";
+        unset TF_HISTORY;
+        export PYTHONIOENCODING=$TF_PYTHONIOENCODING;
+        history -s $TF_CMD;
+    }
+fi
 
+# Attempt to load rocm modules
 if [ -d "/opt/rocm" ]; then
   export ROCM_PATH=/opt/rocm
   export HSA_OVERRIDE_GFX_VERSION=10.3.0
