@@ -1,0 +1,76 @@
+#!/bin/bash
+COMMAND=$@
+
+if [[ "`whoami`" == "root" ]]; then
+    ${@:1}
+else
+
+    # Initialize an empty arrays to hold positional arguments and flags
+    args=()
+    flags=()
+
+    # Check if sudo is active
+    SUDO_ACTIVE=0
+    sudo -n true 2>/dev/null && SUDO_ACTIVE=1
+
+    truncate_path() {
+        local filepath="$1"
+        local max_length=49
+
+        # If the filepath is shorter or equal to max length, print it as is
+        if [ ${#filepath} -le $max_length ]; then
+            echo "$filepath"
+            return
+        fi
+
+        # Calculate the length to keep from the start and end
+        local start_length=$(( (max_length - 5) / 2 ))
+        local end_length=$(( max_length - start_length - 5 ))
+
+        # Truncate the string and add "..." in the middle
+        local start="${filepath:0:$start_length}"
+        local end="${filepath: -$end_length}"
+        echo "${start}...${end}"
+    }
+
+    # Loop through each argument in $@
+    for arg in "${@:2}"; do
+        # Check if the argument doesn't start with a dash (-) or plus(+)
+        if [[ $arg != -* && $arg != +* ]]; then
+            args+=("$arg")
+        else
+            flags+=("$arg")
+        fi
+    done
+
+    if [[ -z $args[0] ]]; then 
+        file=.
+    else
+        file=${args[0]}
+    fi
+
+    if [ -w "$file" ] || { [ ! -e "$file" ] && [ -w "$(dirname "$file")" ]; }; then
+        $1 ${flags[@]} ${args[@]}
+    else
+        printf "\e[31;40mFilename: %49s \e[0m\n" $(truncate_path $file)
+        printf "\e[1;30;41m%-60s\e[0m\n" " !!! WARNING !!!"
+        printf "\e[30;41m%-60s\e[0m\n" " YOU DO NOT HAVE WRITE ACCESS TO THIS FILE!"
+        printf "\e[31;41m%-84b\e[0m\n" "\e[31;40m Run as sudo? [\e[4;1mY\e[0;31;40m/n/c=(Cancel)]"
+        read -sn 1 ANSW
+        case $ANSW in
+            ""|"Y"|"y")
+                sudo $1 ${flags[@]} ${args[@]}
+                # Drop sudo if it was not active before
+                if [[ $SUDO_ACTIVE == 0 ]]; then
+                    sudo -k
+                fi
+                ;;
+            ""|"N"|"n")
+                $1 ${flags[@]} ${args[@]}
+                ;;        
+            *)
+                echo ""
+                ;;
+        esac
+    fi
+fi

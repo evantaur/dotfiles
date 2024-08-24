@@ -3,13 +3,6 @@ alias la='ls -A'
 alias l='ls -CF'
 which lsd 2> /dev/null && alias ls='lsd'
 
-#Attempt to find helix
-if [[ `which helix 2> /dev/null` ]]; then
-    alias nano="helix"
-elif [[ `which hx 2> /dev/null` ]]; then
-    alias nano="hx"
-fi
-
 alias nf="$_B_CONF/scripts/nf"
 alias activate='source bin/activate &> /dev/null || source ../bin/activate &> /dev/null || echo "not in venv"'
 alias calc="numbat -e"
