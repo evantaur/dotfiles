@@ -52,9 +52,13 @@ else
     if [ -w "$file" ] || { [ ! -e "$file" ] && [ -w "$(dirname "$file")" ]; }; then
         $1 ${flags[@]} ${args[@]}
     else
-        printf "\e[31;40mFilename: %49s \e[0m\n" $(truncate_path $file)
+        printf "\e[31;40m Filename: %48s \e[0m\n" $(truncate_path $file)
+        printf "\e[1;30;41m%-60s\e[0m\n" " "
         printf "\e[1;30;41m%-60s\e[0m\n" " !!! WARNING !!!"
-        printf "\e[30;41m%-60s\e[0m\n" " YOU DO NOT HAVE WRITE ACCESS TO THIS FILE!"
+        printf "\e[1;30;41m%-60s\e[0m\n" " "
+        printf "\e[1;30;41m%-60s\e[0m\n" " "
+        printf "\e[30;41m%-60s\e[0m\n"   "   YOU DO NOT HAVE WRITE ACCESS TO THIS FILE!"
+        printf "\e[1;30;41m%-60s\e[0m\n" " "     
         printf "\e[31;41m%-84b\e[0m\n" "\e[31;40m Run as sudo? [\e[4;1mY\e[0;31;40m/n/c=(Cancel)]"
         read -sn 1 ANSW
         case $ANSW in
