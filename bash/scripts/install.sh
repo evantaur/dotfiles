@@ -14,7 +14,7 @@ tar xvf dotfiles.tar.gz && \
 cp -r dotfiles-main/bash $HOME/.config/ && \
 [[ -e $HOME/.bashrc && ! -L $HOME/.bashrc ]] && mv $HOME/.bashrc $HOME/._backup_bashrc
 cd $HOME
-ln -s $HOME/.config/bash/bashrc ~/.bashrc && \
+[[ -e ~/.bashrc ]] || ln -s $HOME/.config/bash/bashrc ~/.bashrc
 bash -l
 
 
