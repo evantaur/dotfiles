@@ -1,8 +1,8 @@
 #Attempt to find helix
-if [[ `whereis helix &> /dev/null` ]]; then
+if [[ `whereis helix 2> /dev/null` ]]; then
     alias nano="helix"
     alias hx="$_B_CONF/scripts/hxedit hx"
-elif [[ `whereis hx &> /dev/null` ]]; then
+elif [[ `whereis hx 2> /dev/null` ]]; then
     alias nano="hx"
     alias hx="$_B_CONF/scripts/hxedit hx"
 else

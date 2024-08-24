@@ -1,0 +1,21 @@
+theme = "default"
+
+[keys.normal]
+C-s = ":w" 
+
+[editor]
+line-number = "relative"
+mouse = true
+true-color = true
+
+[editor.lsp]
+display-messages = true
+
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "underline"
+select = "hidden"
+
+[editor.file-picker]
+hidden = false
