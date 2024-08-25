@@ -12,6 +12,10 @@
 #  If the user doesn't have the necessary permissions, 
 #  it prompts for sudo to gain access to the file.
 #
+#  usage:
+#    (Throw this into your bash rc)
+#    alias <editor_name>="/path/to/hxedit <editor_name>"
+#
 ########################################################################
 COMMAND=$@
 

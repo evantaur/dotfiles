@@ -1,7 +1,7 @@
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-whereis lsd &> /dev/null && alias ls='lsd'
+command -v lsd &> /dev/null && alias ls='lsd'
 
 alias nf="$_B_CONF/scripts/nf"
 alias activate='source bin/activate &> /dev/null || source ../bin/activate &> /dev/null || echo "not in venv"'
