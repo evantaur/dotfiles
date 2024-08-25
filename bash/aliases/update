@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function update_bash_config() {
+  if command -v curl; then
+    curl https://raw.githubusercontent.com/evantaur/dotfiles/main/bash/scripts/install.sh -o /tmp/bash_install.sh && \
+  elif command -v wget; then
+    wget https://raw.githubusercontent.com/evantaur/dotfiles/main/bash/scripts/install.sh -O /tmp/bash_install.sh
+  fi && \
+  bash /tmp/bash_install.sh && rm /tmp/bash_install.sh
+}
