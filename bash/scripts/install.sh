@@ -5,7 +5,7 @@
 #
 
 # Create dirpath if it doesn't exist
-[[ -z $HOME/.config/bash ]] || mkdir -p bash
+[[ -z $HOME/.config/bash ]] || mkdir -p $HOME/.config/bash
 
 # Use Git if found else try wget
 if command -v git &> /dev/null ; then
