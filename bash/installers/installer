@@ -1,0 +1,108 @@
+#!/bin/sh
+
+DISTRO=$(awk '{print $1}' /etc/issue | tr -d "\n")
+
+declare -A collections=(
+  ["base"]="helix lsd"
+)
+
+declare -A packages_Arch=(
+  ["helix"]="helix"
+  ["_lsd"]="lsd"
+)
+
+declare -A github_repo=(
+  ["helix"]="helix-editor/helix"
+  ["numbat"]="sharkdp/numbat"
+  ["lsd"]="lsd-rs/lsd"
+)
+
+declare -A github_release_prefix=(
+  ["helix"]="helix"
+)
+
+declare -A github_release_type=(
+  ["helix"]="-x86_64.linux.tar.xz"
+  ["numbat"]="_64-unknown-linux-gnu.tar.gz"
+  ["lsd"]="x86_64-unknown-linux-gnu.tar.gz"
+)
+
+declare -A github_queue
+
+package_manager_queue=""
+git_package_path="/tmp/github_packages"
+
+unpack() {
+  filename=$1
+  # Extract the tarball to /tmp and capture the output
+  extracted_paths=$(tar xvf $filename)
+
+  # Get the first extracted item
+  first_extracted_item=$(echo "$extracted_paths" | head -n 1)
+
+  # Construct the full path
+  extracted_path="$git_package_path/$first_extracted_item"
+
+  [[ -f $extracted_path ]] && extracted_path=`dirname $extracted_path`
+  echo "$extracted_path"
+}
+
+export -f unpack
+export git_package_path
+
+get_github_release() {
+  if [[ -z "${github_repo[$1]}" ]]; then
+    echo "$1 not found"
+    return 1
+  fi
+  local latest_release=$(curl -s https://api.github.com/repos/${github_repo[$1]}/releases/latest)
+  local github_prefix=$1
+  
+  [[ -n "${github_release_prefix[$1]}" ]]; github_prefix="${github_release_prefix[$1]}"
+  
+  local asset_url=$(echo "$latest_release" | grep -Eo "https://[^\"]+$github_prefix-[^\"]+${github_release_type[$1]}")
+  github_queue[$i]="$asset_url"
+}
+
+install() {
+    for i in $@; do
+    if [[ "$DISTRO" == "Arch" && -n ${packages_Arch[$i]} ]]; then
+        package_manager_queue+=" ${packages_Arch[$i]}"
+        continue
+    fi
+    get_github_release $i
+  done
+
+  if [[ "$DISTRO" == "Arch" ]]; then
+    echo sudo pacman -S $package_manager_queue
+  fi
+
+  # Download packages
+  [[ -d $git_package_path ]] || mkdir -p $git_package_path
+  for i in "${!github_queue[@]}"; do
+    url=${github_queue[$i]}
+    filename="$(basename $url)"
+    [[ -e $git_package_path/$filename ]] || curl -L -o $git_package_path/$filename "$url"
+  done
+
+  # Run install scripts
+  for i in "${!github_queue[@]}"; do
+    echo installing $i
+    url=${github_queue[$i]}
+    filename="$(basename $url)"
+    `dirname $0`/scripts/$i "install" "$git_package_path" "$filename"
+  done
+}
+
+
+case $1 in
+  "install")
+    install ${@:2}
+    ;;
+  "remove")
+    echo remove ${@:2}
+    ;;
+    *)
+    echo helpscreen
+    ;;
+esac
