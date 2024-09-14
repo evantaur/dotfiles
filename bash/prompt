@@ -23,14 +23,16 @@ esac
 
 ingognito() {
   if [[ "$1" == "check" ]]; then
-    if [[ -z $HISTFILE ]]; then
+    if [[ "$HISTFILE" == "/dev/null" ]]; then
       echo "👻"
     fi
   else
-    if [[ -z $HISTFILE ]]; then
+    if [[ "$HISTFILE" == "/dev/null" ]]; then
       HISTFILE="$HOME/.bash_history"
+      set -o history
     else
-      unset HISTFILE
+      HISTFILE="/dev/null"
+      set +o history     
     fi
   fi
 }
@@ -53,7 +55,8 @@ ___SUDO_ACTIVE() {
 #export PS1="${BLUE}[\$(___SUDO_ACTIVE)${USERCOLOR}\u${BLUE}][${YELLOW}\h${BLUE}]${RESET}${YELLOW}[${BLUE}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
 
 export PS1="${PROMPT_BG}${BRACKET_COLOR}[\$(___SUDO_ACTIVE)\$(ingognito check)${USERCOLOR}\u${BRACKET_COLOR}]${RESET}${BRACKET_COLOR}${PROMPT_BG}[${USERCOLOR}${HOSTCOLOR}$(___HOSTICON)\h${BRACKET_COLOR}]${YELLOW}[${PWD_COLOR}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
-
+unset HOSTCOLOR
+unset -f ___HOSTICON
 
 
 
