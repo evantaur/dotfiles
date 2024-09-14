@@ -2,18 +2,53 @@
 source $HOME/.config/bash/colors
 source $_B_CONF/scripts/git-prompt.sh
 
+if [ "$USER" == "root" ]; then
+  USERCOLOR="${MAGENTA}"
+  PROMPT_BG="\033[48;5;232m"
+else
+  USERCOLOR="${YELLOW}"
+  PROMPT_BG=""
+fi
+
 case $(awk '{print $1}' /etc/issue | tr -d "\n") in
     "Arch"  )       BRACKET_COLOR=$BLUE ; PWD_COLOR=$BLUE    ;;
     "Debian")       BRACKET_COLOR=$RED  ; PWD_COLOR=$RED     ;;
            *)       BRACKET_COLOR=$RED  ; PWD_COLOR=$RED     ;;
 esac
 
-___SUDO_ACTIVE() {
-  sudo -n true 2>/dev/null && echo -ne "$BRIGHT_RED🍄"
-}
-#export PS1="${BLUE}[\$(___SUDO_ACTIVE)${YELLOW}\u${BLUE}][${YELLOW}\h${BLUE}]${RESET}${YELLOW}[${BLUE}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
 
-export PS1="${BRACKET_COLOR}[\$(___SUDO_ACTIVE)${YELLOW}\u${BRACKET_COLOR}][${YELLOW}\h${BRACKET_COLOR}]${RESET}${YELLOW}[${PWD_COLOR}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
+ingognito() {
+  if [[ "$1" == "check" ]]; then
+    if [[ -z $HISTFILE ]]; then
+      echo "👻"
+    fi
+  else
+    if [[ -z $HISTFILE ]]; then
+      HISTFILE="$HOME/.bash_history"
+    else
+      unset HISTFILE
+    fi
+  fi
+}
+
+
+___HOSTICON() {
+  if [[ -f $_B_CONF/.hosticon ]]; then
+    cat $_B_CONF/.hosticon
+  fi
+}
+
+
+___SUDO_ACTIVE() {
+  if [ "$USER" == root ]; then
+    echo "🌱"
+  else
+    sudo -n true 2>/dev/null && echo -ne "$BRIGHT_RED🍄"
+  fi
+}
+#export PS1="${BLUE}[\$(___SUDO_ACTIVE)${USERCOLOR}\u${BLUE}][${YELLOW}\h${BLUE}]${RESET}${YELLOW}[${BLUE}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
+
+export PS1="${PROMPT_BG}${BRACKET_COLOR}[\$(___SUDO_ACTIVE)\$(ingognito check)${USERCOLOR}\u${BRACKET_COLOR}]${RESET}${BRACKET_COLOR}${PROMPT_BG}[${USERCOLOR}$(___HOSTICON)\h${BRACKET_COLOR}]${YELLOW}[${PWD_COLOR}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
 
 
 
