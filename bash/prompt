@@ -10,6 +10,10 @@ else
   PROMPT_BG=""
 fi
 
+if [[ -f "$_B_CONF/.hostcolor" ]]; then
+  HOSTCOLOR=$(hex_to_rgb `cat $_B_CONF/.hostcolor`)
+fi
+
 case $(awk '{print $1}' /etc/issue | tr -d "\n") in
     "Arch"  )       BRACKET_COLOR=$BLUE ; PWD_COLOR=$BLUE    ;;
     "Debian")       BRACKET_COLOR=$RED  ; PWD_COLOR=$RED     ;;
@@ -48,7 +52,7 @@ ___SUDO_ACTIVE() {
 }
 #export PS1="${BLUE}[\$(___SUDO_ACTIVE)${USERCOLOR}\u${BLUE}][${YELLOW}\h${BLUE}]${RESET}${YELLOW}[${BLUE}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
 
-export PS1="${PROMPT_BG}${BRACKET_COLOR}[\$(___SUDO_ACTIVE)\$(ingognito check)${USERCOLOR}\u${BRACKET_COLOR}]${RESET}${BRACKET_COLOR}${PROMPT_BG}[${USERCOLOR}$(___HOSTICON)\h${BRACKET_COLOR}]${YELLOW}[${PWD_COLOR}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
+export PS1="${PROMPT_BG}${BRACKET_COLOR}[\$(___SUDO_ACTIVE)\$(ingognito check)${USERCOLOR}\u${BRACKET_COLOR}]${RESET}${BRACKET_COLOR}${PROMPT_BG}[${USERCOLOR}$(___HOSTICON)${HOSTCOLOR}\h${BRACKET_COLOR}]${YELLOW}[${PWD_COLOR}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
 
 
 

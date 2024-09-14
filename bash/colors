@@ -1,4 +1,14 @@
 #!/bin/bash
+hex_to_rgb() {
+    hex="${1#'#'}"  # Remove the leading '#' if present
+    r=$((16#${hex:0:2}))  # Extract red hex value and convert to decimal
+    g=$((16#${hex:2:2}))  # Extract green hex value and convert to decimal
+    b=$((16#${hex:4:2}))  # Extract blue hex value and convert to decimal
+
+    # Output ANSI escape code for RGB foreground color
+    echo -e "\033[38;2;${r};${g};${b}m"
+}
+
 ORANGE="\033[38;2;255;165;0m"
 
 # Define basic colors with their corresponding ASCII escape codes
