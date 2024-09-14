@@ -21,7 +21,7 @@ case $(awk '{print $1}' /etc/issue | tr -d "\n") in
 esac
 
 
-ingognito() {
+incognito() {
   if [[ "$1" == "check" ]]; then
     if [[ "$HISTFILE" == "/dev/null" ]]; then
       echo "👻"
@@ -54,7 +54,7 @@ ___SUDO_ACTIVE() {
 }
 #export PS1="${BLUE}[\$(___SUDO_ACTIVE)${USERCOLOR}\u${BLUE}][${YELLOW}\h${BLUE}]${RESET}${YELLOW}[${BLUE}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
 
-export PS1="${PROMPT_BG}${BRACKET_COLOR}[\$(___SUDO_ACTIVE)\$(ingognito check)${USERCOLOR}\u${BRACKET_COLOR}]${RESET}${BRACKET_COLOR}${PROMPT_BG}[${USERCOLOR}${HOSTCOLOR}$(___HOSTICON)\h${BRACKET_COLOR}]${YELLOW}[${PWD_COLOR}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
+export PS1="${PROMPT_BG}${BRACKET_COLOR}[\$(___SUDO_ACTIVE)\$(incognito check)${USERCOLOR}\u${BRACKET_COLOR}]${RESET}${BRACKET_COLOR}${PROMPT_BG}[${USERCOLOR}${HOSTCOLOR}$(___HOSTICON)\h${BRACKET_COLOR}]${YELLOW}[${PWD_COLOR}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
 unset HOSTCOLOR
 unset -f ___HOSTICON
 
