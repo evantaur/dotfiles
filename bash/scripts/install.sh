@@ -22,9 +22,15 @@ else
 fi && \
 cp -r /tmp/dotfiles-main/bash  $HOME/.config/ && \
 cp -r /tmp/dotfiles-main/helix $HOME/.config/ && \
+cp -r /tmp/dotfiles-main/vim   $HOME/.config/ && \
 [[ -e $HOME/.bashrc && ! -L $HOME/.bashrc ]] && mv $HOME/.bashrc $HOME/._backup_bashrc
+[[ -e $HOME/.vimrc && ! -L $HOME/.vimrc ]] && mv $HOME/.vimrc $HOME/._backup_vimrc
 cd $HOME
 [[ -e ~/.bashrc ]] || ln -s $HOME/.config/bash/bashrc ~/.bashrc
+[[ -e ~/.vimrc ]] || ln -s $HOME/.config/vim/vimrc ~/.vimrc
+[[ -e ~/.vim ]] || ln -s $HOME/.config/vim/vim ~/.vim
+
+
 rm -rf /tmp/dotfiles-main
 [[ -e "/tmp/dotfiles.tar.gz" ]] && rm /tmp/dotfiles.tar.gz
 source ~/.bashrc
