@@ -12,7 +12,7 @@ if command -v git &> /dev/null ; then
   cd /tmp
   git clone -n --depth=1 --filter=tree:0 https://github.com/evantaur/dotfiles.git && \
   cd dotfiles && \
-  git sparse-checkout set --no-cone bash helix && \
+  git sparse-checkout set --no-cone bash helix vim && \
   git checkout
   mv /tmp/dotfiles /tmp/dotfiles-main
 else
