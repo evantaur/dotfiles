@@ -5,7 +5,6 @@ command -v lsd &> /dev/null && alias ls='lsd'
 
 alias nf="$_B_CONF/scripts/nf"
 alias activate='source bin/activate &> /dev/null || source ../bin/activate &> /dev/null || echo "not in venv"'
-alias calc="numbat -e"
 alias ytdl="yt-dlp -f mp4"
 alias forcesudo='[ "$(whoami)" = "root" ] && "$@" || sudo'
 
@@ -15,3 +14,8 @@ if [ -d "/opt/rocm" ]; then
   export ROCM_PATH=/opt/rocm
   export HSA_OVERRIDE_GFX_VERSION=10.3.0
 fi
+
+#Alias for Numbat
+function calc() {
+    numbat -e "$*"
+}
