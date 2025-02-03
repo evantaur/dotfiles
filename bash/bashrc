@@ -34,7 +34,7 @@ bind '"\C-f": menu-complete'
 # bind "set menu-complete-display-prefix on"
 
 # Load colors for ls
-source ~/.config/bash/.dir_colors
+source ~/.config/bash/dir_colors
 
 # Get Distro name
 ___DISTRO=$(awk '{print $1}' /etc/issue | tr -d "\n")
