@@ -9,6 +9,13 @@
 # Set variable for bash config dir (Imma lazy)
 _B_CONF=$HOME/.config/bash
 
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
 # Enable fuzzy history search
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
@@ -42,14 +49,6 @@ if [ -d "$HOME/.config/bash/aliases/" ]; then
         [ -f "$file" ] && source "$file"
     done
 fi
-
-# Some node shit
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH=$(echo $PATH | tr ":" "\n" | grep -v "/.local/bin" | tr "\n" ":" | sed s/.$//)
-export PATH=$PATH:$(whoami)/.local/bin
 
 
 # The most important thing
