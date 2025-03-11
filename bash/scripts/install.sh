@@ -70,7 +70,7 @@ generate_color() {
 
 # Man the hostcolor and host icon if not present
 [[ -f ~/.config/bash/.hostcolor ]] || generate_color > $HOME/.config/bash/.hostcolor
-[[ -f ~/.config/bash/.hosticon ]] || random_emoji > $HOME/.config/bash/.hostcolor
+[[ -f ~/.config/bash/.hosticon ]] || random_emoji > $HOME/.config/bash/.hosticon
 
 
 rm -rf /tmp/dotfiles-main
