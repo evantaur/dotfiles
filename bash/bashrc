@@ -3,11 +3,13 @@
 # ~/.bashrc
 #
 
+SOURCE=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 # Set variable for bash config dir (Imma lazy)
-_B_CONF=$HOME/.config/bash
+_B_CONF="$SOURCE/.config/bash"
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -34,33 +36,42 @@ bind '"\C-f": menu-complete'
 # bind "set menu-complete-display-prefix on"
 
 # Load colors for ls
-source ~/.config/bash/dir_colors
+source $_B_CONF/dir_colors
 
 # Get Distro name
 ___DISTRO=$(awk '{print $1}' /etc/issue | tr -d "\n")
 
 # Load Prompt stuff
 source $_B_CONF/scripts/git-prompt.sh
-source ~/.config/bash/prompt
+source $_B_CONF/prompt
 
 # Load aliases
-if [ -d "$HOME/.config/bash/aliases/" ]; then
-    for file in "$HOME/.config/bash/aliases/"*; do
+if [ -d "$_B_CONF/aliases/" ]; then
+    for file in "$_B_CONF/aliases/"*; do
         [ -f "$file" ] && source "$file"
     done
 fi
 
+# import paths
+export PATH=$PATH:$(whoami)/.local/bin
+if [[ "$(whoami)" == "root" ]]; then
+    ADDPATHS="$SOURCE/.local/bin"
+    export PATH=$PATH:$ADDPATHS
+fi
+
+unset SOURCE
 
 # The most important thing
-fastfetch 2> /dev/null || (
+if [[ "$(whoami)" != "root" ]]; then
+    (fastfetch 2> /dev/null || (
     echo -ne "Nya $HOSTNAME\n\n\nUwU\n\n"
 
 echo " ((      /|_/|"
 echo " \\\\.._.'  , ,\\"
 echo "  /\\ | '.__ v /"
-echo " (_ .   /   \"   "     
+echo " (_ .   /   \"   "
 echo "  ) _)._  _ /"
-echo " '.\\ \\|( / ( mrf" 
+echo " '.\\ \\|( / ( mrf"
 echo "   '' ''\\\\ \\\\"
-echo -ne "\n\n"    
-)
+echo -ne "\n\n"
+)); fi

@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# Replaces [sudo su] so I get my toys for those rare occasions i have
+# to run as root
+# 
+
+SUDOPATH="$(command -v sudo)"
+
+sudo() {
+        if [ "$1" == "su" ] && [ -z $2 ]; then
+          $SUDOPATH su - -c "cd $PWD; bash --rcfile \"$HOME/.bashrc\""
+        else
+          $SUDOPATH $@
+        fi
+}

@@ -1,5 +1,5 @@
 #!/bin/bash
-source $HOME/.config/bash/colors
+source $_B_CONF/colors
 source $_B_CONF/scripts/git-prompt.sh
 
 if [ "$USER" == "root" ]; then
