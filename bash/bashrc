@@ -62,16 +62,15 @@ fi
 unset SOURCE
 
 # The most important thing
-if [[ "$(whoami)" != "root" ]]; then
-    (fastfetch 2> /dev/null || (
-    echo -ne "Nya $HOSTNAME\n\n\nUwU\n\n"
 
-echo " ((      /|_/|"
-echo " \\\\.._.'  , ,\\"
-echo "  /\\ | '.__ v /"
-echo " (_ .   /   \"   "
-echo "  ) _)._  _ /"
-echo " '.\\ \\|( / ( mrf"
-echo "   '' ''\\\\ \\\\"
-echo -ne "\n\n"
-)); fi
+# Art by David Palmer
+fastfetch() {
+    fastfetch 2> /dev/null || (echo -ne "Nya $HOSTNAME\n\n\nUwU\n\n")
+}
+
+if [[ "$(whoami)" != "root" ]]; then
+    fastfetch
+fi
+
+# Jump to bottom
+tput cup $(($(tput lines) -2 )) 0

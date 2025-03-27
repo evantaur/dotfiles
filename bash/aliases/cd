@@ -5,4 +5,5 @@ clear
 echo -e "\n${GREEN}  $PWD\n${BLUE}--------------------------------------------------------------${RESET}\n"
 lsd --group-dirs=first 2> /dev/null || ls
 echo "") 
+tput cup $(($(tput lines) -2 )) 0
 }
