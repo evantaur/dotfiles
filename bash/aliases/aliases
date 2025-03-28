@@ -22,5 +22,6 @@ fi
 
 #Alias for Numbat
 function calc() {
-    numbat -e "$*"
+    C=$(echo "$*" | tr "," ".")
+    numbat -e "$C"
 }
