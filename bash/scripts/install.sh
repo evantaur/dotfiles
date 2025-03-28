@@ -15,7 +15,7 @@ if command -v git &> /dev/null ; then
   cd /tmp
   git clone -n --depth=1 --filter=tree:0 https://github.com/evantaur/dotfiles.git && \
   cd dotfiles && \
-  git sparse-checkout set --no-cone bash helix vim && \
+  git sparse-checkout set --no-cone bash helix vim tmux && \
   git checkout
   mv /tmp/dotfiles /tmp/dotfiles-main
 else
@@ -26,6 +26,7 @@ fi && \
 cp -r /tmp/dotfiles-main/bash  $HOME/.config/ && \
 cp -r /tmp/dotfiles-main/helix $HOME/.config/ && \
 cp -r /tmp/dotfiles-main/vim   $HOME/.config/ && \
+cp -r /tmp/dotfiles-main/tmux  $HOME/.config/ && \
 [[ -e $HOME/.bashrc && ! -L $HOME/.bashrc ]] && mv $HOME/.bashrc $HOME/._backup_bashrc
 [[ -e $HOME/.vimrc && ! -L $HOME/.vimrc ]] && mv $HOME/.vimrc $HOME/._backup_vimrc
 cd $HOME
