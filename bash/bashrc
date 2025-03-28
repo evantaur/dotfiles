@@ -3,7 +3,8 @@
 # ~/.bashrc
 #
 
-SOURCE=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+export SOURCE=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+[[ -z $SOURCE ]] && SOURCE="$HOME"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -53,23 +54,23 @@ if [ -d "$_B_CONF/aliases/" ]; then
 fi
 
 # import paths
-export PATH=$PATH:$(whoami)/.local/bin
-if [[ "$(whoami)" == "root" ]]; then
-    ADDPATHS="$SOURCE/.local/bin"
-    export PATH=$PATH:$ADDPATHS
+if [ -d "$_B_CONF/imports/" ]; then
+    for file in "$_B_CONF/imports/"*; do
+        [ -f "$file" ] && source "$file"
+    done
 fi
 
 unset SOURCE
 
 # The most important thing
 
-# Art by David Palmer
-fastfetch() {
-    fastfetch 2> /dev/null || (echo -ne "Nya $HOSTNAME\n\n\nUwU\n\n")
+__CAT_ASCII() {
+echo -ne "\tNya $HOSTNAME\n\n\nUwU\n\n"
+cat "$_B_CONF/cat"
 }
 
 if [[ "$(whoami)" != "root" ]]; then
-    fastfetch
+    fastfetch 2> /dev/null || __CAT_ASCII
 fi
 
 # Jump to bottom

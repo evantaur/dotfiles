@@ -1,7 +1,12 @@
+# Aliases for ls
+
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
-command -v lsd &> /dev/null && alias ls='lsd'
+alias l='ls -F'
+
+# Weird alias for backups
+
+cb() { F="$(basename $1)"; cp "$1" _${F}_`date +%Y%m%d_%s`; }
 
 alias nf="$_B_CONF/scripts/nf"
 alias activate='source bin/activate &> /dev/null || source ../bin/activate &> /dev/null || echo "not in venv"'

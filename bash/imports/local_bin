@@ -1,0 +1,6 @@
+export PATH=$PATH:/home/$(whoami)/.cargo/bin:/home/$(whoami)/.local/bin
+
+if [[ "$(whoami)" == "root" ]]; then
+    ADDPATHS="$SOURCE/.local/bin"
+    export PATH=$PATH:$ADDPATHS
+fi

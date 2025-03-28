@@ -1,11 +1,20 @@
 #Attempt to find helix
-if [[ `command -v helix 2> /dev/null` ]]; then
-    alias nano="helix"
-    alias hx="$_B_CONF/scripts/hxedit hx"
-elif [[ `command -v hx 2> /dev/null` ]]; then
-    alias nano="hx"
-    alias hx="$_B_CONF/scripts/hxedit hx"
-else
-    alias nano="$_B_CONF/scripts/hxedit nano"
-    alias hx="nano"
-fi
+set_editor() {
+    # Define the list of editors in order of preference
+    local editors=("helix" "hx" "vim" "vi" "nano")
+    
+    # Loop through each editor and check if it's available
+    for editor in "${editors[@]}"; do
+        if command -v "$editor" &> /dev/null; then
+            export EDITOR=`command -v $editor`
+            return
+        fi
+    done
+}
+set_editor
+alias hx="$_B_CONF/scripts/hxedit $EDITOR"
+alias helix="$_B_CONF/scripts/hxedit $EDITOR"
+alias vi="$_B_CONF/scripts/hxedit $EDITOR"
+alias nano="$_B_CONF/scripts/hxedit $EDITOR"
+
+unset set_editor
