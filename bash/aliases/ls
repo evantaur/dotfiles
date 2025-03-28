@@ -1,0 +1,28 @@
+#!/bin/bash
+ls() {
+	clear
+	_ARGS=""
+	_DIRS=()
+	_SEARCH=($@)
+	for i in "${_SEARCH[@]}"; do
+		if [[ "$i" == -* ]]; then
+	  	_ARGS="$ARGS $i"
+	  else
+	  	_DIRS+=($i)
+	  fi
+	done
+
+
+	[[ ${#_DIRS[@]} -eq 0 ]] && _DIRS=("$PWD")
+	WIDTH="$(tput cols)"
+	for x in ${_DIRS[@]}; do
+			echo -e "\n${GREEN}  $x${RESET}"
+			printf "${GREEN}▔%.0s" $(seq 1 "$WIDTH")
+			echo -e "${RESET}"
+			lsd --group-dirs=first $_ARGS "$x" || \
+			/usr/bin/ls --colors="auto" $_ARGS "$x"
+			printf "${BLUE}═%.0s" $(seq 1 "$WIDTH")
+			echo -e ${RESET}
+	done
+	tput cup $(($(tput lines) -2 )) 0
+}
