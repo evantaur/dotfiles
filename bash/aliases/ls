@@ -17,7 +17,8 @@ ls() {
 	[[ ${#_DIRS[@]} -eq 0 ]] && _DIRS=("$PWD")
 	WIDTH="$(tput cols)"
 	for x in ${_DIRS[@]}; do
-			echo -e "${GREEN}  $x${RESET}"
+			rp=$(realpath $x)
+			echo -e "${GREEN}  ${rp}${RESET}"
 			printf "${GREEN}▔%.0s" $(seq 1 "$WIDTH")
 			echo -en "${RESET}"
 			lsd --group-dirs=first $_ARGS "$x" || \
