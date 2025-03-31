@@ -22,7 +22,7 @@ ls() {
 			printf "${GREEN}▔%.0s" $(seq 1 "$WIDTH")
 			echo -en "${RESET}"
 			lsd --group-dirs=first $_ARGS "$x" || \
-			/usr/bin/ls --colors="auto" $_ARGS "$x"
+			/usr/bin/ls --color $_ARGS "$x"
 			printf "${BLUE}═%.0s" $(seq 1 "$WIDTH")
 			echo -e "${RESET}\n"
 	done
