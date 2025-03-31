@@ -21,7 +21,7 @@ ls() {
 			echo -e "${GREEN}  ${rp}${RESET}"
 			printf "${GREEN}▔%.0s" $(seq 1 "$WIDTH")
 			echo -en "${RESET}"
-			lsd --group-dirs=first $_ARGS "$x" || \
+			lsd --group-dirs=first $_ARGS "$x" 2> /dev/null || \
 			/usr/bin/ls --color $_ARGS "$x"
 			printf "${BLUE}═%.0s" $(seq 1 "$WIDTH")
 			echo -e "${RESET}\n"
