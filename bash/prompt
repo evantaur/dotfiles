@@ -41,6 +41,11 @@ incognito() {
   fi
 }
 
+__move_cursor_to_end() {
+  echo -ne "\n"
+  tput cup $(($(tput lines) -2 )) 0
+}
+
 
 ___HOSTICON() {
   if [[ -f $_B_CONF/.hosticon ]]; then
@@ -57,7 +62,7 @@ ___SUDO_ACTIVE() {
   fi
 }
 
-export PS1="$(__IS_TMUX)${PROMPT_BG}${BRACKET_COLOR}[\$(___SUDO_ACTIVE)\$(incognito check)${USERCOLOR}\u${BRACKET_COLOR}]${RESET}${BRACKET_COLOR}${PROMPT_BG}[${USERCOLOR}${HOSTCOLOR}$(___HOSTICON)\h${BRACKET_COLOR}]${YELLOW}[${PWD_COLOR}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
+export PS1="\$(__move_cursor_to_end)$(__IS_TMUX)${PROMPT_BG}${BRACKET_COLOR}[\$(___SUDO_ACTIVE)\$(incognito check)${USERCOLOR}\u${BRACKET_COLOR}]${RESET}${BRACKET_COLOR}${PROMPT_BG}[${USERCOLOR}${HOSTCOLOR}$(___HOSTICON)\h${BRACKET_COLOR}]${YELLOW}[${PWD_COLOR}\w${YELLOW}]${RESET}\$(__git_ps1)\\n└─▪ "
 unset HOSTCOLOR
 unset -f ___HOSTICON
 
