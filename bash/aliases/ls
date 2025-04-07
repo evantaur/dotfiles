@@ -26,5 +26,6 @@ ls() {
 			printf "${BLUE}═%.0s" $(seq 1 "$WIDTH")
 			echo -e "${RESET}\n"
 	done
-	tput cup $(($(tput lines) -2 )) 0
+  # Moved to prompt
+	# tput cup $(($(tput lines) -2 )) 0
 }
