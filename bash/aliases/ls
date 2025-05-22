@@ -17,15 +17,18 @@ ls() {
 	[[ ${#_DIRS[@]} -eq 0 ]] && _DIRS=("$PWD")
 	WIDTH="$(tput cols)"
 	for x in ${_DIRS[@]}; do
-			rp=$(realpath $x)
-			echo -e "${GREEN}  ${rp}${RESET}"
-			printf "${GREEN}▔%.0s" $(seq 1 "$WIDTH")
-			echo -en "${RESET}"
-			lsd --group-dirs=first $_ARGS "$x" 2> /dev/null || \
-			/usr/bin/ls --color $_ARGS "$x"
-			printf "${BLUE}═%.0s" $(seq 1 "$WIDTH")
-			echo -e "${RESET}\n"
+			if [[ -d "$x" ]]; then
+				rp="$(realpath $x)"
+				echo -e "${GREEN}  ${rp}${RESET}"
+				printf "${GREEN}▔%.0s" $(seq 1 "$WIDTH")
+				echo -en "${RESET}"
+				lsd --group-dirs=first $_ARGS "$x" 2> /dev/null || \
+				/usr/bin/ls --color $_ARGS "$x"
+				printf "${BLUE}═%.0s" $(seq 1 "$WIDTH")
+				echo -e "${RESET}\n"
+			else
+				echo -e "${RED}!  No such directory \"${x}\" ${RESET}"
+			fi
 	done
-  # Moved to prompt
-	# tput cup $(($(tput lines) -2 )) 0
+	tput cup $(($(tput lines) -2 )) 0
 }
