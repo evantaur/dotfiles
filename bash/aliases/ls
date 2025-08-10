@@ -1,34 +1,49 @@
 #!/bin/bash
 ls() {
-	clear
-	echo
-	_ARGS=""
-	_DIRS=()
-	_SEARCH=($@)
-	for i in "${_SEARCH[@]}"; do
-		if [[ "$i" == -* ]]; then
-	  	_ARGS="$ARGS $i"
-	  else
-	  	_DIRS+=($i)
-	  fi
-	done
+  clear
+  echo
 
+  # Define local arrays
 
-	[[ ${#_DIRS[@]} -eq 0 ]] && _DIRS=("$PWD")
-	WIDTH="$(tput cols)"
-	for x in ${_DIRS[@]}; do
-			if [[ -d "$x" ]]; then
-				rp="$(realpath $x)"
-				echo -e "${GREEN}  ${rp}${RESET}"
-				printf "${GREEN}▔%.0s" $(seq 1 "$WIDTH")
-				echo -en "${RESET}"
-				lsd --group-dirs=first $_ARGS "$x" 2> /dev/null || \
-				/usr/bin/ls --color $_ARGS "$x"
-				printf "${BLUE}═%.0s" $(seq 1 "$WIDTH")
-				echo -e "${RESET}\n"
-			else
-				echo -e "${RED}!  No such directory \"${x}\" ${RESET}"
-			fi
-	done
-	tput cup $(($(tput lines) -2 )) 0
+  local -a _args=()
+  local -a _dirs=()
+  local i x rp width
+
+  # Split flags vs paths safely
+  for i in "$@"; do
+    if [[ "$i" == -* ]]; then
+      _args+=("$i")
+    else
+      _dirs+=("$i")
+    fi
+  done
+
+  # If no path set path to local dir
+  [[ ${#_dirs[@]} -eq 0 ]] && _dirs=("$PWD")
+
+  width="$(tput cols)"
+
+  for x in "${_dirs[@]}"; do
+    if [[ -d "$x" || -f "$x" ]]; then
+      rp="$(realpath -- "$x")"
+
+      # header
+      printf "%b  %s%b\n" "$GREEN" "$rp" "$RESET"
+      printf "%b" "$GREEN"; printf '▔%.0s' $(seq 1 "$width"); printf "%b\n" "$RESET"
+
+      # use lsd if available, fall back to /usr/bin/ls; always pass args as array and add -- before path
+      if command -v lsd >/dev/null 2>&1; then
+        lsd --group-dirs=first "${_args[@]}" -- "$x" 2>/dev/null
+      else
+        /usr/bin/ls --color=auto "${_args[@]}" -- "$x"
+      fi
+
+      # footer
+      printf "%b" "$BLUE"; printf '═%.0s' $(seq 1 "$width"); printf "%b\n\n" "$RESET"
+    else
+      printf "%b!  No such file or directory \"%s\" %b\n" "$RED" "$x" "$RESET"
+    fi
+  done
+
+  tput cup $(( $(tput lines) - 2 )) 0
 }
