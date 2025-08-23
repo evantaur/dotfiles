@@ -20,6 +20,10 @@ Quote: https://userChrome.org | https://github.com/topics/userchrome
 @-moz-document url(chrome://browser/content/browser.xhtml){
 /* Please write your custom CSS under this line*/
 
+/* Taken from:
+ https://github.com/MrOtherGuy/firefox-csshacks/blob/master/chrome/autohide_toolbox.css
+*/
+
 :root {
   --uc-autohide-toolbox-delay: 200ms;
   /* Wait 0.1s before hiding toolbars */
