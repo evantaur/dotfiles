@@ -15,13 +15,50 @@ if [[ -f "$_B_CONF/.hostcolor" ]]; then
 fi
 
 case $___DISTRO in
-    "arch"  )       BRACKET_COLOR=$BLUE ; PWD_COLOR=$BLUE    ;;
-    "debian")       BRACKET_COLOR=$RED  ; PWD_COLOR=$RED     ;;
-           *)       BRACKET_COLOR=$RED  ; PWD_COLOR=$RED     ;;
+    "arch"      )       BRACKET_COLOR=$(hex_to_rgb 1793d1)
+                        PWD_COLOR=$(hex_to_rgb 1793d1)           ;;
+    "alpine"    )       BRACKET_COLOR=$(hex_to_rgb 005880)
+                        PWD_COLOR=$(hex_to_rgb 005880)           ;;
+    "debian"    )       BRACKET_COLOR=$(hex_to_rgb ce0056)
+                        PWD_COLOR=$(hex_to_rgb ce0056)           ;;
+    "fedora"    )       BRACKET_COLOR=$(hex_to_rgb 3c6eb4)
+                        PWD_COLOR=$(hex_to_rgb 3c6eb4)           ;;
+    "gentoo"    )       BRACKET_COLOR=$(hex_to_rgb 54487a)
+                        PWD_COLOR=$(hex_to_rgb 54487a)           ;;
+    "linuxmint" )       BRACKET_COLOR=$(hex_to_rgb 86be43)
+                        PWD_COLOR=$(hex_to_rgb 86be43)           ;;
+    "nixos"     )       BRACKET_COLOR=$(hex_to_rgb 5277c3)
+                        PWD_COLOR=$(hex_to_rgb 5277c3)           ;;
+    "popos"     )       BRACKET_COLOR=$(hex_to_rgb 48b9c7)
+                        PWD_COLOR=$(hex_to_rgb 48b9c7)           ;;
+    "ubuntu"    )       BRACKET_COLOR=$(hex_to_rgb e95420)
+                        PWD_COLOR=$(hex_to_rgb e95420)           ;;
+    "debian"    )       BRACKET_COLOR=$(hex_to_rgb ce0056)
+                        PWD_COLOR=$(hex_to_rgb ce0056)           ;;
+               *)       BRACKET_COLOR=$WHITE  ; PWD_COLOR=$WHITE ;;
+esac
+
+case $___DISTRO in
+    "arch"      )       DISTRO_LOGO=" " ;;
+    "alpine"    )       DISTRO_LOGO=" " ;;
+    "debian"    )       DISTRO_LOGO=" " ;;
+    "centos"    )       DISTRO_LOGO=" " ;;
+    "fedora"    )       DISTRO_LOGO=" " ;;
+    "gentoo"    )       DISTRO_LOGO=" " ;;
+    "linuxmint" )       DISTRO_LOGO="󰣭 " ;;
+    "opensuse"  )       DISTRO_LOGO=" " ;;
+    "nixos"     )       DISTRO_LOGO=" " ;;
+    "ubuntu"    )       DISTRO_LOGO=" " ;;
+    "freebsd"   )       DISTRO_LOGO=" " ;;
+               *)       DISTRO_LOGO=" " ;;
 esac
 
 __IS_TMUX() {
-  [[ -n $TMUX ]] && echo "${CYAN} "
+  if [[ -n $TMUX ]] then
+    echo "${BRACKET_COLOR} "
+  else
+    echo "$BRACKET_COLOR$DISTRO_LOGO"
+  fi
 }
 
 
