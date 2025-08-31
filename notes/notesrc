@@ -1,0 +1,28 @@
+# where the files are located (root directory)
+notebook=~/cloud/Asscloud/Notes
+
+deftype=md
+
+# exclude list
+exclude .git .* trash *.sqlite
+
+umenu print the files ; echo %f
+
+# rules
+rule view *.pdf zathura %f
+rule view *.txt hx %f
+rule view *.md hx %f
+rule edit *.txt hx %f
+rule edit *.md  hx %f
+
+# user defined menu items
+umenu xdg-open; xdg-open %f
+umenu copy to clipboard; xclip -i %f
+
+# Force nextcloud to synchronize on startup / exit
+#onstart=isonline -q master.nic-net.lan && nextcloudcmd -s -u $USER -p password ~/Nextcloud/ https://master.nic-net.lan/nextcloud
+#onexit=isonline -q master.nic-net.lan && nextcloudcmd -s -u $USER -p password ~/Nextcloud/ https://master.nic-net.lan/nextcloud
+
+# UI
+pvhead=off
+
