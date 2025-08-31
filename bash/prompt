@@ -14,9 +14,9 @@ if [[ -f "$_B_CONF/.hostcolor" ]]; then
   HOSTCOLOR=$(hex_to_rgb `cat $_B_CONF/.hostcolor`)
 fi
 
-case $(awk '{print $1}' /etc/issue | tr -d "\n") in
-    "Arch"  )       BRACKET_COLOR=$BLUE ; PWD_COLOR=$BLUE    ;;
-    "Debian")       BRACKET_COLOR=$RED  ; PWD_COLOR=$RED     ;;
+case $___DISTRO in
+    "arch"  )       BRACKET_COLOR=$BLUE ; PWD_COLOR=$BLUE    ;;
+    "debian")       BRACKET_COLOR=$RED  ; PWD_COLOR=$RED     ;;
            *)       BRACKET_COLOR=$RED  ; PWD_COLOR=$RED     ;;
 esac
 
