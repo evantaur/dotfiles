@@ -1,9 +1,9 @@
-if [ "$___DISTRO" == "Arch" ]; then
+if [ "$___DISTRO" == "arch" ]; then
 	function pacman() {
-    	if [[ "$1" == "-Ss" ]]; then
-        	command pacman "$@"
+    	if [[ "$1" == "-S" ]]; then
+        	forcesudo pacman "$@"
 	    else
-    	    forcesudo pacman "$@"
+    	    command pacman "$@"
 	    fi
 	}
 fi
