@@ -40,7 +40,7 @@ bind '"\C-f": menu-complete'
 source $_B_CONF/dir_colors
 
 # Get Distro name
-___DISTRO=$(awk '{print $1}' /etc/issue | tr -d "\n")
+___DISTRO=$(cat /etc/*-release | grep ID= | grep -v "_ID" | tr -d "ID=")
 
 # Load Prompt stuff
 source $_B_CONF/scripts/git-prompt.sh
