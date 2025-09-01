@@ -4,5 +4,5 @@ function update_bash_config() {
     (curl https://raw.githubusercontent.com/evantaur/dotfiles/main/bash/scripts/install.sh -o /tmp/bash_install.sh 2> /dev/null  || \
     wget https://raw.githubusercontent.com/evantaur/dotfiles/main/bash/scripts/install.sh -O /tmp/bash_install.sh 2> /dev/null)  && \
     bash /tmp/bash_install.sh && rm /tmp/bash_install.sh && \
-    exec bash
+    exec bash --login
 }
