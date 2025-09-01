@@ -64,7 +64,7 @@ else
     if [[ -z $args[0] ]]; then 
         file=.
     else
-        file=${args[0]}
+        file="${args[0]}"
     fi
 
     if [ -w "$file" ] || { [ ! -e "$file" ] && [ -w "$(dirname "$file")" ]; }; then
@@ -81,7 +81,7 @@ else
         read -sn 1 ANSW
         case $ANSW in
             ""|"Y"|"y")
-                sudo $1 ${flags[@]} ${args[@]}
+                sudoedit -- ${flags[@]} ${args[@]}
                 # Drop sudo if it was not active before
                 if [[ $SUDO_ACTIVE == 0 ]]; then
                     sudo -k
