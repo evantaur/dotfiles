@@ -79,7 +79,7 @@ incognito() {
 }
 
 __move_cursor_to_end() {
-  echo -ne "\n"
+  echo -ne "\n\n"
   tput cup $(($(tput lines) -2 )) 0
 }
 
