@@ -8,7 +8,7 @@ SUDOPATH="$(command -v sudo)"
 
 sudo() {
         if [ "$1" == "su" ] && [ -z $2 ]; then
-          $SUDOPATH su - -c "cd $PWD; bash --rcfile \"$HOME/.bashrc\""
+          sudo -E bash
         else
           $SUDOPATH $@
         fi
