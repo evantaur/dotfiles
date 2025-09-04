@@ -23,7 +23,7 @@ else
   cd /tmp/ && \
   tar xvf dotfiles.tar.gz
 fi && \
-[[ -d "$HOME/.local/bin" ]] || mkdir -p "$HOME/.local/bin && \
+[[ -d "$HOME/.local/bin" ]] || mkdir -p "$HOME/.local/bin" && \
 cp -r /tmp/dotfiles-main/bash    $HOME/.config/ && \
 cp -r /tmp/dotfiles-main/helix   $HOME/.config/ && \
 cp -r /tmp/dotfiles-main/vim     $HOME/.config/ && \
