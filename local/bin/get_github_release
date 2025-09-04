@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+
+#
+# Simple release getter for github
+#
+
+import urllib.request
+from platform import (system as hsys,
+                      machine as hmach)
+
+from sys import argv as args
+import subprocess
+import json
+
+
+def _norm(s: str) -> str:
+    # unify case & separators so linux-x86_64, linux.x86_64 and
+    # linux_x86_64 all match
+    return s.lower().replace("-", "_").replace(".", "_")
+
+
+def get_arch() -> str:
+    ''' Get the formated string to search a download for '''
+    libc = "gnu"
+    # Return 'musl' or 'gnu' for Linux.
+    try:
+        out = subprocess.check_output(
+                                      ["ldd", "--version"],
+                                      stderr=subprocess.STDOUT) \
+                                      .decode("utf-8", "ignore")
+        if "musl" in out.lower():
+            libc="musl"
+    except Exception:
+        pass
+    m = hmach().lower()
+    s = hsys().lower()
+    return (
+        f"{m}_unknown_{s}_{libc}",
+        f"linux_{m}"
+    )
+
+
+def get_download_url(repository: str) -> tuple | None:
+    url = f"https://api.github.com/repos/{repository}/releases/latest"
+    try:
+        response = urllib.request.urlopen(url)
+    except urllib.error.HTTPError as e:
+        # do something
+        print('Error code: ', e.code)
+        exit(1)
+    except urllib.error.URLError as e:
+        # do something
+        print('Reason: ', e.reason)
+        exit(1)
+
+    data_json = json.loads(response.read().decode('utf-8'))
+    download_url = None
+
+    for i in data_json.get("assets"):
+        name = _norm(i.get("name"))
+        res = any(ar in name for ar in ARCH)
+        if res:
+            download_url = i.get("browser_download_url")
+            break
+    return download_url
+
+
+if __name__ == "__main__":
+    ARCH = get_arch()
+    if len(args) < 2:
+        print("No repo spesified")
+        exit(1)
+    github_url = get_download_url(args[1]) or None
+    if not github_url:
+        exit(1)
+    print(github_url, end="")
