@@ -51,7 +51,8 @@ get_dirname() {
 
 download_stuff() {
   # Placeholder but will do for now
-  
+
+  cd /tmp/
   # Install Gum
   [[ "$(check_if_installed gum)" == true ]] || ( \
     echo "Installing Gum"
@@ -60,7 +61,7 @@ download_stuff() {
     GH_DIR="/tmp/$(get_dirname $GH_FILE)"
     
     wget -q --show-progress "$GH_URL" -O "/tmp/$GH_FILE" && \
-    tar xf /tmp/$GH_FILE && \
+    tar xf "/tmp/$GH_FILE" && \
     cp "$GH_DIR/gum" "$HOME/.local/bin/" && \
     cp "$GH_DIR/completions/gum.bash" "$HOME/.config/bash/completitions/" && \
     cp "$GH_DIR/manpages/"* "$HOME/.local/share/man/" && \
@@ -68,6 +69,38 @@ download_stuff() {
     rm "/tmp/$GH_FILE" && \
     echo "Gum Installed" || echo "Gum installation failed"
   )
+
+  # Install Shmarks
+  [[ "$(check_if_installed shmarks)" == true ]] || ( \
+    echo "Installing Shmarks"
+    GH_URL="$(get_github_release ybda/shmarks)"
+    GH_FILE="$(basename -- $GH_URL)"
+    GH_DIR="/tmp/$(get_dirname $GH_FILE)"
+    
+    wget -q --show-progress "$GH_URL" -O "/tmp/$GH_FILE" && \
+    tar xf /tmp/$GH_FILE && \
+    cp "$GH_DIR/shmarks" "$HOME/.local/bin/" && \
+    rm -r "$GH_DIR" && \
+    rm "/tmp/$GH_FILE" && \
+    echo "SHmarks Installed" || echo "SHmarks installation failed"
+  )
+#   # Install Numbat
+  [[ "$(check_if_installed numbat)" == true ]] || ( \
+    echo "Installing Numbat"
+    GH_URL="$(get_github_release sharkdp/numbat)"
+    GH_FILE="$(basename -- $GH_URL)"
+    GH_DIR="/tmp/$(get_dirname $GH_FILE)"
+    
+    wget -q --show-progress "$GH_URL" -O "/tmp/$GH_FILE" && \
+    tar xf /tmp/$GH_FILE && \
+    cp "$GH_DIR/numbat" "$HOME/.local/bin/" && \
+    rm -r "$GH_DIR" && \
+    rm "/tmp/$GH_FILE" && \
+    echo "Numbat Installed" || echo "Numbat installation failed"
+  )
+
+
+  
 }
 
 random_emoji(){
