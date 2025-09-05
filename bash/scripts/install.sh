@@ -19,11 +19,12 @@ if command -v git &> /dev/null ; then
   git checkout
   mv /tmp/dotfiles /tmp/dotfiles-main
 else
-  wget --show-progress "https://github.com/evantaur/dotfiles/archive/refs/heads/main.tar.gz" -O /tmp/dotfiles.tar.gz && \
+  wget -q --show-progress "https://github.com/evantaur/dotfiles/archive/refs/heads/main.tar.gz" -O /tmp/dotfiles.tar.gz && \
   cd /tmp/ && \
-  tar xvf dotfiles.tar.gz
+  tar xf dotfiles.tar.gz
 fi && \
 [[ -d "$HOME/.local/bin" ]] || mkdir -p "$HOME/.local/bin" && \
+[[ -d "$HOME/.local/share/man" ]] || mkdir -p "$HOME/.local/share/man" && \
 cp -r /tmp/dotfiles-main/bash    $HOME/.config/ && \
 cp -r /tmp/dotfiles-main/helix   $HOME/.config/ && \
 cp -r /tmp/dotfiles-main/vim     $HOME/.config/ && \
@@ -36,6 +37,38 @@ cd $HOME
 [[ -e ~/.vimrc ]] || ln -s $HOME/.config/vim/vimrc ~/.vimrc
 [[ -e ~/.vim ]] || ln -s $HOME/.config/vim/vim ~/.vim
 
+check_if_installed() {
+  # Check if installed via package manager
+  [[ "$(command -v $1)" == "" ]] || \
+  [[ "$(command -v $1)" == *"$HOME"* ]] && \
+    echo -n false || echo -n true
+}
+
+get_dirname() {
+  echo "$1" | sed -E 's/\.tar\.gz$|\.tar$|\.zip$//'
+
+}
+
+download_stuff() {
+  # Placeholder but will do for now
+  
+  # Install Gum
+  [[ "$(check_if_installed gum)" == true ]] || ( \
+    echo "Installing Gum"
+    GH_URL="$(get_github_release charmbracelet/gum)"
+    GH_FILE="$(basename -- $GH_URL)"
+    GH_DIR="/tmp/$(get_dirname $GH_FILE)"
+    
+    wget -q --show-progress "$GH_URL" -O "/tmp/$GH_FILE" && \
+    tar xf /tmp/$GH_FILE && \
+    cp "$GH_DIR/gum" "$HOME/.local/bin/" && \
+    cp "$GH_DIR/completions/gum.bash" "$HOME/.config/bash/completitions/" && \
+    cp "$GH_DIR/manpages/"* "$HOME/.local/share/man/" && \
+    rm -r "$GH_DIR" && \
+    rm "/tmp/$GH_FILE" && \
+    echo "Gum Installed" || echo "Gum installation failed"
+  )
+}
 
 random_emoji(){
     # Unicode emoji ranges (Hexadecimal)
