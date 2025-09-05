@@ -144,7 +144,7 @@ generate_color() {
 [[ -f ~/.config/bash/.hostcolor ]] || generate_color > $HOME/.config/bash/.hostcolor
 [[ -f ~/.config/bash/.hosticon ]] || random_emoji > $HOME/.config/bash/.hosticon
 
-
+download_stuff
 rm -rf /tmp/dotfiles-main
 [[ -e "/tmp/dotfiles.tar.gz" ]] && rm /tmp/dotfiles.tar.gz
 source ~/.bashrc
