@@ -33,6 +33,11 @@ _get "https://raw.githubusercontent.com/evantaur/dotfiles/refs/heads/main/local/
 _DIR="$HOME/.local/"; [[ ! -d "$_DIR/bin" ]] && mkdir -p "$_DIR/bin"
 _DIR="$HOME/.local/share/applications"; [[ ! -d "$_DIR" ]] && mkdir -p "$_DIR"
 
+# Prefetch the browser from openlink script
+C_BROWSER=""
+if [[ -f ~/.local/bin/openlink ]]; then
+  C_BROWSER=`sed -n 's/^BROWSER=\(.*\)/\1/p' $HOME/.local/bin/openlink | tr -d '"'`
+fi
 
 
 safemv "/tmp/openlink.desktop" "$HOME/.local/share/applications/openlink.desktop"
@@ -44,8 +49,8 @@ sed -i "s|USER_NAME|$USER|g" $HOME/.local/share/applications/openlink.desktop
 # Changing the default browser for openlink script
 D_BROWSER="$(xdg-mime query default x-scheme-handler/https)"
 D_BROWSER="${D_BROWSER%.desktop}"
-[[ "$D_BROWSER" == "openlink" ]] && [[ -f ~/.local/bin/openlink ]] && \
-  D_BROWSER=`sed -n 's/^BROWSER=\(.*\)/\1/p' ~/.local/bin/openlink | tr -d '"'`
+[[ "$D_BROWSER" == "openlink" ]] && [[ -n $C_BROWSER ]] && \
+  D_BROWSER=$C_BROWSER
 echo "Enter browser in which links will be opened. Defaults to: [$D_BROWSER]"
 read USER_BROWSER 
 USER_BROWSER=${USER_BROWSER:-$D_BROWSER}
