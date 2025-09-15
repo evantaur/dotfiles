@@ -21,6 +21,8 @@ safemv() {
     else
       rm "$1"
     fi
+  else
+    mv "$1" "$2"
   fi
 }
 
