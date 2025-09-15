@@ -5,14 +5,20 @@
 # Configs
 BROWSER=""
 
+# Script
+CONFIG_PATH="$HOME/.config/openlink"
+if [[ ! -f "$CONFIG_PATH" ]]; then
+    echo '
+# Add your trash sites below
 trash_sites=(
     "facebook.com"
     "instagram.com"
     "tiktok.com"
     "youtube.com"
-    )
+)' | tee $CONFIG_PATH
+fi
+source $CONFIG_PATH
 
-# Script
 url="$1"
 
 [[ -z $url ]] && exit 0
