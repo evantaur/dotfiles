@@ -1,4 +1,8 @@
-# Instructions to get openlink working as intended
+# Openlink
+Openlink opens links to video sites like instagram or tiktok in mpv instead of the browser.
+Normal links will open in browser.
+
+## Instructions to get openlink working as intended
 
 Download the installation script:
 
