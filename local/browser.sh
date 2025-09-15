@@ -49,9 +49,8 @@ D_BROWSER="${D_BROWSER%.desktop}"
 echo "Enter browser in which links will be opened. Defaults to: [$D_BROWSER]"
 read USER_BROWSER 
 USER_BROWSER=${USER_BROWSER:-$D_BROWSER}
-USER_VAR="BROWSER=\"$USER_BROWSER\""
 
-sed -i "s|BROWSER=|$USER_BROWSER|g" $HOME/.local/bin/openlink
+sed -i '' 's|^BROWSER=.*|BROWSER=$USER_BROWSER/'
 
 echo "Set default url handler to openlink? [y/N]"
 read yesno
