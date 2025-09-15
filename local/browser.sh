@@ -50,7 +50,7 @@ echo "Enter browser in which links will be opened. Defaults to: [$D_BROWSER]"
 read USER_BROWSER 
 USER_BROWSER=${USER_BROWSER:-$D_BROWSER}
 
-sed -i "s|BROWSER=.*|BROWSER=$USER_BROWSER|" $HOME/.local/bin/openlink
+sed -i "s|BROWSER=.*|BROWSER=\"$USER_BROWSER\"|" $HOME/.local/bin/openlink
 
 echo "Set default url handler to openlink? [y/N]"
 read yesno
