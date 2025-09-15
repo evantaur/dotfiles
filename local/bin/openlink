@@ -3,7 +3,7 @@
 # 
  
 # Configs
-BROWSER="floorp"
+BROWSER=""
 
 trash_sites=(
     "facebook.com"
