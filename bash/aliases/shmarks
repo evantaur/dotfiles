@@ -1,5 +1,3 @@
-alias shmarks="$_B_CONF/bin/shmarks/shmarks"
-
 bm(){
   case $1 in
   "-a"|"add")
