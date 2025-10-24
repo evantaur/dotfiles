@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# Downloads and installs bash config, probably 
-# don't want to run this unless you're me...
-#
+# Downloads and installs bash config, probably don't want to run this
+# unless you're me...
+
 
 LANG=en_US.UTF-8
 LC_ALL=en_US.UTF-8
-
+PATH="$PATH:$HOME/.local/bin"
 # Create dirpath if it doesn't exist
 [[ -z $HOME/.config/bash ]] || mkdir -p $HOME/.config/bash
 
