@@ -54,7 +54,7 @@ case $___DISTRO in
 esac
 
 __IS_TMUX() {
-  if [[ -n $TMUX ]] then
+  if [[ -n $TMUX ]]; then
     echo "${BRACKET_COLOR} "
   else
     echo "$BRACKET_COLOR$DISTRO_LOGO"
