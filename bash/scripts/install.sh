@@ -84,7 +84,23 @@ download_stuff() {
     rm "/tmp/$GH_FILE" && \
     echo "SHmarks Installed" || echo "SHmarks installation failed"
   )
-#   # Install Numbat
+
+  # Install TOML-cli
+  [[ "$(check_if_installed toml-cli)" == true ]] || ( \
+    echo "Installing TOML-cli"
+    GH_URL="$(get_github_release gnprice/toml-cli)"
+    GH_FILE="$(basename -- $GH_URL)"
+    GH_DIR="/tmp/$(get_dirname $GH_FILE)"
+    
+    wget -q --show-progress "$GH_URL" -O "/tmp/$GH_FILE" && \
+    tar xf /tmp/$GH_FILE && \
+    cp "$GH_DIR/toml-cli" "$HOME/.local/bin/" && \
+    rm -r "$GH_DIR" && \
+    rm "/tmp/$GH_FILE" && \
+    echo "TOML-cli Installed" || echo "TOML-cli installation failed"
+  )
+
+  # Install Numbat
   [[ "$(check_if_installed numbat)" == true ]] || ( \
     echo "Installing Numbat"
     GH_URL="$(get_github_release sharkdp/numbat)"
