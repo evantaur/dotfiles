@@ -36,7 +36,8 @@ def get_arch() -> str:
     s = hsys().lower()
     return (
         f"{m}_unknown_{s}_{libc}",
-        f"linux_{m}"
+        f"linux_{m}",
+        f"{m}_linux"
     )
 
 
