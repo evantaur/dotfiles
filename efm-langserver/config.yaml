@@ -1,0 +1,18 @@
+version: 2
+
+languages:
+  sh:
+    - lint-command: "shellcheck -f gcc -x -"
+      lint-stdin: true
+      lint-formats:
+        - "%f:%l:%c: %m"
+      format-command: "shfmt -i 2 -ci -bn"
+      format-stdin: true
+
+  bash:
+    - lint-command: "shellcheck -f gcc -x -"
+      lint-stdin: true
+      lint-formats:
+        - "%f:%l:%c: %m"
+      format-command: "shfmt -i 2 -ci -bn"
+      format-stdin: true
