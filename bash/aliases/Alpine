@@ -1,0 +1,12 @@
+if [ "$___DISTRO" == "alpine" ]; then
+	function apk() {
+    	if [[ "$1" == "add" ]]; then
+        	doas apk "$@"
+	    else
+    	    command apk "$@"
+	    fi
+	}
+fi
+
+
+
