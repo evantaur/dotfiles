@@ -5,16 +5,15 @@
 #############################################################
 
 # Return true if upower is not installed
-which upower > /dev/null || ( \
+AC_DEVICE="$(which upower > /dev/null || ( \
   echo "could not find upower" ;\
   exit 0
   ) && ( \
   upower -e | grep -i "/org/freedesktop/UPower/devices/line_power_AC" || exit 0 \
-)
-
+))"
 
 IFS=":" read name on_ac <<< \
-`upower -i /org/freedesktop/UPower/devices/line_power_AC | \
+`upower -i "$AC_DEVICE" | \
 grep -i "online" | tr -d '[:blank:]'`
 
 [ "$on_ac" == "yes" ] && exit 0
